@@ -9,4 +9,8 @@ class PostController extends Controller
      public function test(){
         return response()->json('Hello MFA ');
     }
+
+    public function create(){
+        
+    }
 }
