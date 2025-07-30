@@ -6,7 +6,6 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Exception;
-// use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -65,6 +64,29 @@ class PostController extends Controller
                 'status' => 500,
                 'message' => 'Erreur sur la modification ',
                 'erreur' => $e
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        // dd($id);
+        try {
+            $post = Post::find($id);
+            if (!$post) {
+                return response()->json([
+                    'erreur' => 'Ce post n\'exixte pas'
+                ]);
+            }
+            $post->delete();
+            return response()->json([
+                'status' => 204,
+                'message' => 'Post Supprimer'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => $e
             ]);
         }
     }
