@@ -18,4 +18,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/test', [PostController::class, 'test']);
     Route::post('/createPost', [PostController::class, 'create']);
+    Route::post('/editPost', [PostController::class, 'edit']);
+
 });
