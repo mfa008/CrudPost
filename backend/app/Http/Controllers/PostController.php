@@ -42,7 +42,30 @@ class PostController extends Controller
         }
     }
 
-    public function edit(Request $request){
-        
+    public function edit(Request $request, $id)
+    {
+        try {
+            $post = Post::find($id);
+            // dd($post);
+            if (!$post) {
+                return response()->json([
+                    'erreur' => 'Ce post n\'exixte pas'
+                ]);
+            }
+            $post->titre = $request->titre;
+            $post->description = $request->description;
+            $post->save();
+            return response()->json([
+                'status' => 200,
+                'message ' => 'Post modifier',
+                'post' => $post,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Erreur sur la modification ',
+                'erreur' => $e
+            ]);
+        }
     }
 }
